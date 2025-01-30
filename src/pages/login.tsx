@@ -18,7 +18,7 @@ export default function Login() {
       await login(identifier, password);
       router.push("/dashboard"); // Redireciona após login
     } catch (err) {
-      setError("Usuário ou senha inválidos");
+      setError(`Usuário ou senha inválidos. ${err}`);
     }
   };
 

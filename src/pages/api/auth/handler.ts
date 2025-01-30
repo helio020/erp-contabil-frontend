@@ -22,6 +22,6 @@ export default async function handler(
 
     return res.status(200).json({ user, jwt });
   } catch (error) {
-    return res.status(400).json({ message: "Credenciais inválidas" });
+    return res.status(400).json({ message: `Credenciais inválidas. ${error}` });
   }
 }
