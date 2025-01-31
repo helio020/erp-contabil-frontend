@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import { Button } from "antd"; // Importando o componente Button do Ant Design
 
 export default function LogoutButton() {
   const router = useRouter();
@@ -10,11 +11,8 @@ export default function LogoutButton() {
   };
 
   return (
-    <button
-      onClick={handleLogout}
-      className="bg-red-500 text-white p-2 rounded"
-    >
+    <Button onClick={handleLogout} type="primary" danger>
       Sair
-    </button>
+    </Button>
   );
 }
