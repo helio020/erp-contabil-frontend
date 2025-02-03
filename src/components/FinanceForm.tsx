@@ -1,19 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Button, message, Select } from "antd";
-import api from "@/app/services/api";
-
-interface Transaction {
-  title: string;
-  amount: string;
-  due_date: string;
-  category: string;
-  type: string;
-  transaction_status: string;
-}
-
-interface FinanceFormProps {
-  onTransactionAdded: () => void;
-}
+import useCategory from "@/app/services/useCategory";
+import FinanceFormProps from "@/app/interfaces/FinanceFormProps";
+import useFinanceTransaction from "@/app/services/useFinanceTransaction";
 
 const FinanceForm: React.FC<FinanceFormProps> = ({ onTransactionAdded }) => {
   const [title, setTitle] = useState("");
@@ -22,39 +11,22 @@ const FinanceForm: React.FC<FinanceFormProps> = ({ onTransactionAdded }) => {
   const [category, setCategory] = useState("");
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
-
-  const addTransaction = async (transaction: Transaction) => {
-    try {
-      await api.post("/create-finance-transaction", transaction);
-    } catch (error) {
-      console.error("Erro ao cadastrar transação:", error);
-      message.error("Erro ao cadastrar transação");
-    }
-  };
-
-  const findCategory = async () => {
-    try {
-      const response = await api.get(`/category/${category}`);
-      return response.data.id;
-    } catch (error) {
-      console.error("Erro ao buscar categorias:", error);
-      return [];
-    }
-  };
+  const [categories, setCategories] = useState<{ id: number; name: string }[]>(
+    []
+  );
 
   const handleSubmit = async () => {
     try {
-      const categoryId = await findCategory();
       const values = {
         title,
         amount,
         due_date: date,
-        category: categoryId,
+        category,
         type,
         transaction_status: status,
       };
 
-      await addTransaction(values);
+      await useFinanceTransaction().createTransaction(values);
       message.success("Transação cadastrada com sucesso!");
     } catch (error) {
       console.error("Erro ao cadastrar transação:", error);
@@ -66,9 +38,22 @@ const FinanceForm: React.FC<FinanceFormProps> = ({ onTransactionAdded }) => {
       setCategory("");
       setType("");
       setStatus("");
-      onTransactionAdded(); // Atualiza a lista de transações
+      onTransactionAdded();
+      window.location.reload();
     }
   };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categories = await useCategory().listAllCategories();
+        setCategories(categories);
+      } catch (error) {
+        console.error("Erro ao buscar categorias:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   return (
     <Form onFinish={handleSubmit} className="mb-6 p-4 border rounded shadow">
@@ -109,11 +94,17 @@ const FinanceForm: React.FC<FinanceFormProps> = ({ onTransactionAdded }) => {
         name="category"
         rules={[{ required: true, message: "Por favor, insira a categoria!" }]}
       >
-        <Input
-          placeholder="Categoria"
+        <Select
+          placeholder="Selecione a categoria"
           value={category || ""}
-          onChange={(e) => setCategory(e.target.value)}
-        />
+          onChange={(value) => setCategory(value)}
+        >
+          {categories.map((category) => (
+            <Select.Option key={category.id} value={category.id}>
+              {category.name}
+            </Select.Option>
+          ))}
+        </Select>
       </Form.Item>
       <Form.Item name="type" rules={[{ required: true }]}>
         <Select

@@ -1,4 +1,5 @@
 import { Menu, Layout } from "antd";
+import { useRouter } from "next/router";
 
 interface SiderProps {
   selectedKey: string;
@@ -7,6 +8,12 @@ interface SiderProps {
 
 export const Sider = ({ selectedKey, handleMenuClick }: SiderProps) => {
   const { Sider } = Layout;
+  const router = useRouter();
+
+  const onMenuClick = (e: any) => {
+    handleMenuClick(e);
+    router.push(e.key);
+  };
 
   return (
     <Sider>
@@ -14,11 +21,11 @@ export const Sider = ({ selectedKey, handleMenuClick }: SiderProps) => {
         theme="dark"
         mode="inline"
         selectedKeys={[selectedKey]}
-        onClick={handleMenuClick}
+        onClick={onMenuClick}
       >
-        <Menu.Item key="1">Painel de Controle</Menu.Item>
-        <Menu.Item key="2">Financeiro</Menu.Item>
-        <Menu.Item key="3">Outro</Menu.Item>
+        <Menu.Item key="/dashboard">Painel de Controle</Menu.Item>
+        <Menu.Item key="/dashboard/finance">Financeiro</Menu.Item>
+        <Menu.Item key="/dashboard/other">Outro</Menu.Item>
       </Menu>
     </Sider>
   );
