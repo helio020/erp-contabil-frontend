@@ -12,8 +12,21 @@ const useFinanceTransaction = () => {
     }
   };
 
+  const updateTransaction = async (
+    id: any,
+    transaction: Transaction
+  ): Promise<void> => {
+    try {
+      await api.put(`/update-finance-transaction/${id}`, transaction);
+    } catch (error) {
+      console.error("Erro ao atualizar transação:", error);
+      message.error("Erro ao atualizar transação");
+    }
+  };
+
   return {
     createTransaction,
+    updateTransaction,
   };
 };
 
