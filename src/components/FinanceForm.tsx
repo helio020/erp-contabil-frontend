@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, Button, message, Select } from "antd";
-import FinanceFormProps from "@/app/interfaces/FinanceFormProps";
-import callFinanceTransaction from "@/app/services/financeTransaction";
-import callCategory from "@/app/services/category";
+import FinanceFormProps from "@/interfaces/FinanceFormProps";
+import callFinanceTransaction from "@/services/financeTransaction";
+import callCategory from "@/services/category";
 
 const FinanceForm: React.FC<FinanceFormProps> = ({ onTransactionAdded }) => {
   const [title, setTitle] = useState("");

@@ -1,11 +1,13 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { Layout, Typography, Spin } from "antd";
-import useAuth from "@/app/hooks/useAuth";
-import api from "@/app/services/api";
-import { Sider } from "@/app/components/Sider";
-import LogoutButton from "@/app/components/Logout";
-import FinanceForm from "@/app/components/FinanceForm";
-import FinanceTable from "@/app/components/FinanceTable";
+import useAuth from "@/hooks/useAuth";
+import api from "@/services/api";
+import { Sider } from "@/components/Sider";
+import LogoutButton from "@/components/Logout";
+import FinanceForm from "@/components/FinanceForm";
+import FinanceTable from "@/components/FinanceTable";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;

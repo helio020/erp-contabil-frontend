@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Input, Form, Button, InputNumber, Popconfirm } from "antd";
-import FinanceTableProps from "@/app/interfaces/FinanceTableProps";
-import callFinanceTransaction from "@/app/services/financeTransaction";
+import FinanceTableProps from "@/interfaces/FinanceTableProps";
+import callFinanceTransaction from "@/services/financeTransaction";
 interface EditableCellProps {
   editing: boolean;
   dataIndex: string;

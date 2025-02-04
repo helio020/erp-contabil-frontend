@@ -1,5 +1,5 @@
 import { Menu, Layout } from "antd";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface SiderProps {
   selectedKey: string;

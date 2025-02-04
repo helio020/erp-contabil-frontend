@@ -1,15 +1,17 @@
-import React, { useState } from "react";
-import { Layout, Typography, Spin } from "antd";
-import useAuth from "@/app/hooks/useAuth";
-import { Sider } from "@/app/components/Sider";
-import LogoutButton from "@/app/components/Logout";
+"use client";
 
-const { Header, Content } = Layout;
-const { Title, Paragraph } = Typography;
+import LogoutButton from "@/components/Logout";
+import { Sider } from "@/components/Sider";
+import useAuth from "@/hooks/useAuth";
+import { Layout, Spin } from "antd";
+import { Content, Header } from "antd/es/layout/layout";
+import Paragraph from "antd/es/typography/Paragraph";
+import Title from "antd/es/typography/Title";
+import { useState } from "react";
 
-const Dashboard: React.FC = () => {
+const Other: React.FC = () => {
   const user = useAuth();
-  const [selectedKey, setSelectedKey] = useState("/dashboard");
+  const [selectedKey, setSelectedKey] = useState("/dashboard/other");
 
   const handleMenuClick = (e: { key: string }) => {
     setSelectedKey(e.key);
@@ -37,7 +39,7 @@ const Dashboard: React.FC = () => {
         </Header>
         <Content style={{ margin: "16px" }}>
           <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
-            <Paragraph>Este é seu painel de controle.</Paragraph>
+            <Paragraph>Other</Paragraph>
           </div>
         </Content>
       </Layout>
@@ -45,4 +47,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default Other;
