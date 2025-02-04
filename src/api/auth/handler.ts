@@ -1,4 +1,4 @@
-import { login } from "@/app/services/authService";
+import { login } from "@/services/authService";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
