@@ -11,7 +11,12 @@ export default function LogoutButton() {
   };
 
   return (
-    <Button onClick={handleLogout} type="primary" danger>
+    <Button
+      onClick={handleLogout}
+      type="primary"
+      danger
+      style={{ margin: "0 10px" }}
+    >
       Sair
     </Button>
   );
