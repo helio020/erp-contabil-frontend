@@ -24,8 +24,8 @@ export const Sider = ({ selectedKey, handleMenuClick }: SiderProps) => {
         onClick={onMenuClick}
       >
         <Menu.Item key="/dashboard">Painel de Controle</Menu.Item>
-        <Menu.Item key="/finance">Financeiro</Menu.Item>
-        <Menu.Item key="/other">Outro</Menu.Item>
+        <Menu.Item key="/dashboard/finance">Financeiro</Menu.Item>
+        <Menu.Item key="/dashboard/other">Outro</Menu.Item>
       </Menu>
     </Sider>
   );
