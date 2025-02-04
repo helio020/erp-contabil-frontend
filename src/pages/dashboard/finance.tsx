@@ -15,7 +15,7 @@ const Finance: React.FC = () => {
   const [selectedKey, setSelectedKey] = useState("/dashboard/finance");
   const [transactions, setTransactions] = useState([]);
 
-  const handleMenuClick = (e: any) => {
+  const handleMenuClick = (e: { key: string }) => {
     setSelectedKey(e.key);
   };
 

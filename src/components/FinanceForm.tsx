@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, Button, message, Select } from "antd";
-import useCategory from "@/app/services/useCategory";
 import FinanceFormProps from "@/app/interfaces/FinanceFormProps";
-import useFinanceTransaction from "@/app/services/useFinanceTransaction";
+import callFinanceTransaction from "@/app/services/financeTransaction";
+import callCategory from "@/app/services/category";
 
 const FinanceForm: React.FC<FinanceFormProps> = ({ onTransactionAdded }) => {
   const [title, setTitle] = useState("");
@@ -26,7 +26,7 @@ const FinanceForm: React.FC<FinanceFormProps> = ({ onTransactionAdded }) => {
         transaction_status: status,
       };
 
-      await useFinanceTransaction().createTransaction(values);
+      await callFinanceTransaction().createTransaction(values);
       message.success("Transação cadastrada com sucesso!");
     } catch (error) {
       console.error("Erro ao cadastrar transação:", error);
@@ -46,7 +46,7 @@ const FinanceForm: React.FC<FinanceFormProps> = ({ onTransactionAdded }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const categories = await useCategory().listAllCategories();
+        const categories = await callCategory().listAllCategories();
         setCategories(categories);
       } catch (error) {
         console.error("Erro ao buscar categorias:", error);

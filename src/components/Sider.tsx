@@ -3,14 +3,14 @@ import { useRouter } from "next/router";
 
 interface SiderProps {
   selectedKey: string;
-  handleMenuClick: (e: any) => void;
+  handleMenuClick: (e: { key: string }) => void;
 }
 
 export const Sider = ({ selectedKey, handleMenuClick }: SiderProps) => {
   const { Sider } = Layout;
   const router = useRouter();
 
-  const onMenuClick = (e: any) => {
+  const onMenuClick = (e: { key: string }) => {
     handleMenuClick(e);
     router.push(e.key);
   };

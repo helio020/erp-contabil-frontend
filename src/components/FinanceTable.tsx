@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Table, Input, Form, Button, InputNumber, Popconfirm } from "antd";
 import FinanceTableProps from "@/app/interfaces/FinanceTableProps";
-import useFinanceTransaction from "@/app/services/useFinanceTransaction";
+import callFinanceTransaction from "@/app/services/financeTransaction";
 interface EditableCellProps {
   editing: boolean;
   dataIndex: string;
   title: string;
   inputType: "number" | "text";
-  record: any;
+  record: Object;
   index: number;
   children: React.ReactNode;
-  [key: string]: any;
+  [key: string]: string | number | boolean | React.ReactNode | Object;
 }
 
 const FinanceTable = (props: FinanceTableProps) => {
@@ -22,7 +22,7 @@ const FinanceTable = (props: FinanceTableProps) => {
     setData(props.transactions);
   }, [props.transactions]);
 
-  const isEditing = (record: any) => record.id === editingKey;
+  const isEditing = (record: { id: React.Key }) => record.id === editingKey;
 
   const edit = (key: React.Key) => {
     const record = data.find((item) => item.id === key);
@@ -46,7 +46,7 @@ const FinanceTable = (props: FinanceTableProps) => {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
         setData(newData);
-        await useFinanceTransaction().updateTransaction(key, row);
+        await callFinanceTransaction().updateTransaction(Number(key), row);
         setEditingKey(null);
       } else {
         newData.push(row);
@@ -60,7 +60,7 @@ const FinanceTable = (props: FinanceTableProps) => {
 
   const deleteTransaction = async (key: React.Key) => {
     try {
-      await useFinanceTransaction().deleteTransaction(key);
+      await callFinanceTransaction().deleteTransaction(Number(key));
       setData(data.filter((item) => item.id !== key));
     } catch (errInfo) {
       console.log("Delete Failed:", errInfo);
@@ -72,8 +72,6 @@ const FinanceTable = (props: FinanceTableProps) => {
     dataIndex,
     title,
     inputType,
-    record,
-    index,
     children,
     ...restProps
   }) => {
@@ -137,7 +135,7 @@ const FinanceTable = (props: FinanceTableProps) => {
     {
       title: "Edição",
       dataIndex: "operation",
-      render: (_: any, record: any) => {
+      render: (_: string, record: { id: React.Key }) => {
         const editable = isEditing(record);
         return editable ? (
           <span
@@ -166,7 +164,7 @@ const FinanceTable = (props: FinanceTableProps) => {
     {
       title: "Exclusão",
       dataIndex: "delete",
-      render: (_: any, record: any) => (
+      render: (_: string, record: { id: React.Key }) => (
         <Popconfirm
           title="Tem certeza que deseja excluir?"
           onConfirm={() => deleteTransaction(record.id)}
@@ -185,7 +183,7 @@ const FinanceTable = (props: FinanceTableProps) => {
     return {
       ...col,
       key: col.dataIndex || index,
-      onCell: (record: { key: React.Key }) => ({
+      onCell: (record: { id: React.Key }) => ({
         record,
         inputType: col.dataIndex === "amount" ? "number" : "text",
         dataIndex: col.dataIndex,

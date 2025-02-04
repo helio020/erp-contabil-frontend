@@ -3,7 +3,7 @@ import api from "./api";
 import Transaction from "../interfaces/Transaction";
 import TransactionToCreate from "../interfaces/TransactionToCreate";
 
-const useFinanceTransaction = () => {
+const callFinanceTransaction = () => {
   const createTransaction = async (
     transaction: TransactionToCreate
   ): Promise<void> => {
@@ -16,7 +16,7 @@ const useFinanceTransaction = () => {
   };
 
   const updateTransaction = async (
-    id: any,
+    id: number,
     transaction: Transaction
   ): Promise<void> => {
     try {
@@ -27,7 +27,7 @@ const useFinanceTransaction = () => {
     }
   };
 
-  const deleteTransaction = async (id: any): Promise<void> => {
+  const deleteTransaction = async (id: number): Promise<void> => {
     try {
       await api.delete(`/delete-finance-transaction/${id}`);
     } catch (error) {
@@ -43,4 +43,4 @@ const useFinanceTransaction = () => {
   };
 };
 
-export default useFinanceTransaction;
+export default callFinanceTransaction;

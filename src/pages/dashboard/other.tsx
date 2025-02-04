@@ -11,7 +11,7 @@ const Other: React.FC = () => {
   const user = useAuth();
   const [selectedKey, setSelectedKey] = useState("/dashboard/other");
 
-  const handleMenuClick = (e: any) => {
+  const handleMenuClick = (e: { key: string }) => {
     setSelectedKey(e.key);
   };
 
