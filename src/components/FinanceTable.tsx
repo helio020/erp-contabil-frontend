@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Input, Form, Button, InputNumber } from "antd";
+import { Table, Input, Form, Button, InputNumber, Popconfirm } from "antd";
 import FinanceTableProps from "@/app/interfaces/FinanceTableProps";
 import useFinanceTransaction from "@/app/services/useFinanceTransaction";
 interface EditableCellProps {
@@ -55,6 +55,15 @@ const FinanceTable = (props: FinanceTableProps) => {
       }
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
+    }
+  };
+
+  const deleteTransaction = async (key: React.Key) => {
+    try {
+      await useFinanceTransaction().deleteTransaction(key);
+      setData(data.filter((item) => item.id !== key));
+    } catch (errInfo) {
+      console.log("Delete Failed:", errInfo);
     }
   };
 
@@ -131,7 +140,14 @@ const FinanceTable = (props: FinanceTableProps) => {
       render: (_: any, record: any) => {
         const editable = isEditing(record);
         return editable ? (
-          <span style={{ display: "flex", justifyContent: "space-between" }}>
+          <span
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "column",
+              gap: "8px",
+            }}
+          >
             <Button onClick={() => save(record.id)} style={{ marginRight: 8 }}>
               Salvar
             </Button>
@@ -146,6 +162,18 @@ const FinanceTable = (props: FinanceTableProps) => {
           </Button>
         );
       },
+    },
+    {
+      title: "Exclusão",
+      dataIndex: "delete",
+      render: (_: any, record: any) => (
+        <Popconfirm
+          title="Tem certeza que deseja excluir?"
+          onConfirm={() => deleteTransaction(record.id)}
+        >
+          <Button danger>Excluir</Button>
+        </Popconfirm>
+      ),
     },
   ];
 
@@ -169,6 +197,7 @@ const FinanceTable = (props: FinanceTableProps) => {
 
   return (
     <Form form={form} component={false}>
+      <h2 className="text-lg font-semibold mb-2">Transações</h2>
       <Table
         components={{
           body: {

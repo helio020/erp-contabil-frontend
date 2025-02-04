@@ -1,11 +1,10 @@
-interface Transaction {
-  id: number;
+interface TransactionToCreate {
   title: string;
-  amount: number;
+  amount: string;
   due_date: string;
   category: string;
   type: string;
   transaction_status: string;
 }
 
-export default Transaction;
+export default TransactionToCreate;

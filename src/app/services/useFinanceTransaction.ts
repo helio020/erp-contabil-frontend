@@ -1,9 +1,12 @@
 import { message } from "antd";
 import api from "./api";
 import Transaction from "../interfaces/Transaction";
+import TransactionToCreate from "../interfaces/TransactionToCreate";
 
 const useFinanceTransaction = () => {
-  const createTransaction = async (transaction: Transaction): Promise<void> => {
+  const createTransaction = async (
+    transaction: TransactionToCreate
+  ): Promise<void> => {
     try {
       await api.post("/create-finance-transaction", transaction);
     } catch (error) {
@@ -24,9 +27,19 @@ const useFinanceTransaction = () => {
     }
   };
 
+  const deleteTransaction = async (id: any): Promise<void> => {
+    try {
+      await api.delete(`/delete-finance-transaction/${id}`);
+    } catch (error) {
+      console.error("Erro ao excluir transação:", error);
+      message.error("Erro ao excluir transação");
+    }
+  };
+
   return {
     createTransaction,
     updateTransaction,
+    deleteTransaction,
   };
 };
 
