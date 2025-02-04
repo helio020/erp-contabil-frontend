@@ -7,10 +7,10 @@ interface EditableCellProps {
   dataIndex: string;
   title: string;
   inputType: "number" | "text";
-  record: Object;
+  record: object;
   index: number;
   children: React.ReactNode;
-  [key: string]: string | number | boolean | React.ReactNode | Object;
+  [key: string]: string | number | boolean | React.ReactNode | object;
 }
 
 const FinanceTable = (props: FinanceTableProps) => {
