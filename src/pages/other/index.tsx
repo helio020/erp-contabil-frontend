@@ -1,6 +1,6 @@
+import LogoutButton from "@/app/components/Logout";
+import { Sider } from "@/app/components/Sider";
 import useAuth from "@/app/hooks/useAuth";
-import LogoutButton from "@/components/Logout";
-import { Sider } from "@/components/Sider";
 import { Layout, Spin } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
 import Paragraph from "antd/es/typography/Paragraph";

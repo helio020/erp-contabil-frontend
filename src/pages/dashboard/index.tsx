@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Layout, Typography, Spin } from "antd";
 import useAuth from "@/app/hooks/useAuth";
-import LogoutButton from "@/components/Logout";
-import { Sider } from "@/components/Sider";
+import { Sider } from "@/app/components/Sider";
+import LogoutButton from "@/app/components/Logout";
 
 const { Header, Content } = Layout;
 const { Title, Paragraph } = Typography;
