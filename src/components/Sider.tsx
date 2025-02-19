@@ -25,7 +25,7 @@ export const Sider = ({ selectedKey, handleMenuClick }: SiderProps) => {
       >
         <Menu.Item key="/dashboard">Painel de Controle</Menu.Item>
         <Menu.Item key="/finance">Financeiro</Menu.Item>
-        <Menu.Item key="/other">Outro</Menu.Item>
+        <Menu.Item key="/reports">Relatórios</Menu.Item>
       </Menu>
     </Sider>
   );

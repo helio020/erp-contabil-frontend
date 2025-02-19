@@ -56,7 +56,11 @@ const FinanceForm: React.FC<FinanceFormProps> = ({ onTransactionAdded }) => {
   }, []);
 
   return (
-    <Form onFinish={handleSubmit} className="mb-6 p-4 border rounded shadow">
+    <Form
+      onFinish={handleSubmit}
+      className="mb-6 p-4 border rounded shadow"
+      style={{ width: "50%" }}
+    >
       <h2 className="text-lg font-semibold mb-2">Nova Transação</h2>
       <Form.Item
         name="title"

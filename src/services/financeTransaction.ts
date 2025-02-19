@@ -2,6 +2,7 @@ import { message } from "antd";
 import api from "./api";
 import Transaction from "../interfaces/Transaction";
 import TransactionToCreate from "../interfaces/TransactionToCreate";
+import { FinanceSummary } from "@/interfaces/FinanceSummary";
 
 const callFinanceTransaction = () => {
   const createTransaction = async (
@@ -36,10 +37,27 @@ const callFinanceTransaction = () => {
     }
   };
 
+  const fetchFinanceSummary = async (): Promise<FinanceSummary> => {
+    try {
+      const response = await api.get("/finance-summary");
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao buscar resumo financeiro:", error);
+      message.error("Erro ao buscar resumo financeiro");
+      return {
+        receitas: 0,
+        despesas: 0,
+        saldo: 0,
+      };
+    }
+  };
+
   return {
     createTransaction,
     updateTransaction,
     deleteTransaction,
+    fetchFinanceSummary,
   };
 };
 
