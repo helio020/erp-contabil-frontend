@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { register } from "@/services/authService";
+import Link from "next/link";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -60,9 +61,9 @@ export default function Register() {
         <button type="submit" className="bg-blue-500 text-white p-2 w-full">
           Cadastrar
         </button>
-        <a href="/" className="text-blue-500 mt-4 block text-center">
+        <Link href="/" className="text-blue-500 mt-4 block text-center">
           Voltar para o login
-        </a>
+        </Link>
       </form>
     </div>
   );
