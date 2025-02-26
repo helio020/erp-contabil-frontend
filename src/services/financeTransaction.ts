@@ -40,7 +40,6 @@ const callFinanceTransaction = () => {
   const fetchFinanceSummary = async (): Promise<FinanceSummary> => {
     try {
       const response = await api.get("/finance-summary");
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar resumo financeiro:", error);

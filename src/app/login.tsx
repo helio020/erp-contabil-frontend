@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { login } from "@/services/authService";
+import Link from "next/link";
 
 export default function Login() {
   const [identifier, setIdentifier] = useState("");
@@ -47,6 +48,12 @@ export default function Login() {
         <button type="submit" className="bg-blue-500 text-white p-2 w-full">
           Entrar
         </button>
+        <p className="mt-4">
+          Não tem uma conta?{" "}
+          <Link href="/register" className="text-blue-500">
+            Cadastre-se
+          </Link>
+        </p>
       </form>
     </div>
   );

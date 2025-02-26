@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Obtém o token do usuário autenticado
 const getToken = () => {
