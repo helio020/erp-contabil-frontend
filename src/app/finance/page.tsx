@@ -8,13 +8,14 @@ import { Sider } from "@/components/Sider";
 import LogoutButton from "@/components/Logout";
 import FinanceForm from "@/components/FinanceForm";
 import FinanceTable from "@/components/FinanceTable";
+import { HeaderComponent } from "@/components/Header";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
 const Finance: React.FC = () => {
   const user = useAuth();
-  const [selectedKey, setSelectedKey] = useState("/dashboard/finance");
+  const [selectedKey, setSelectedKey] = useState("/finance");
   const [transactions, setTransactions] = useState([]);
 
   const handleMenuClick = (e: { key: string }) => {
@@ -40,20 +41,7 @@ const Finance: React.FC = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Sider selectedKey={selectedKey} handleMenuClick={handleMenuClick} />
       <Layout>
-        <Header
-          style={{
-            background: "#fff",
-            padding: 0,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Title level={3} style={{ margin: "16px" }}>
-            Bem-vindo, {user.username}!
-          </Title>
-          <LogoutButton />
-        </Header>
+        <HeaderComponent username={user.username} />
         <Content style={{ margin: "16px" }}>
           <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
             <Title level={3}>Módulo Financeiro</Title>

@@ -1,5 +1,6 @@
 "use client";
 
+import { HeaderComponent } from "@/components/Header";
 import LogoutButton from "@/components/Logout";
 import { Sider } from "@/components/Sider";
 import useAuth from "@/hooks/useAuth";
@@ -13,7 +14,7 @@ import { Cell, Legend, Pie, PieChart } from "recharts";
 
 const Reports: React.FC = () => {
   const user = useAuth();
-  const [selectedKey, setSelectedKey] = useState("/dashboard/other");
+  const [selectedKey, setSelectedKey] = useState("/reports");
   const [summary, setSummary] = useState<FinanceSummary>({
     receitas: 0,
     despesas: 0,
@@ -47,20 +48,7 @@ const Reports: React.FC = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Sider selectedKey={selectedKey} handleMenuClick={handleMenuClick} />
       <Layout>
-        <Header
-          style={{
-            background: "#fff",
-            padding: 0,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Title level={3} style={{ margin: "16px" }}>
-            Bem-vindo, {user.username}!
-          </Title>
-          <LogoutButton />
-        </Header>
+        <HeaderComponent username={user.username} />
         <Content style={{ margin: "16px" }}>
           <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
             <h1 className="text-2xl font-bold mb-4">Relatório Financeiro</h1>
